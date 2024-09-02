@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
+    private int _indexInArray;
+    private float _speed;
     private Transform _pointToGo;
     private Transform[] _points;
-    private float _speed;
-    private int _indexInArray;
 
-    private void Start()
+    private void Awake()
     {
         _points = new Transform[_pointToGo.childCount];
 
@@ -18,6 +18,11 @@ public class Mover : MonoBehaviour
     }
 
     private void Update()
+    {
+        MoveToPoint();
+    }
+
+    private void MoveToPoint()
     {
         Transform pointToGo = _points[_indexInArray];
         transform.position = Vector3.MoveTowards(transform.position, pointToGo.position, _speed * Time.deltaTime);
