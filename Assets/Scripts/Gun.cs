@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Weapon : MonoBehaviour
+public class Gun : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
@@ -12,13 +12,13 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Shooting());
+        StartCoroutine(Fire());
     }
 
-    private IEnumerator Shooting()
+    private IEnumerator Fire()
     {
         bool isWork = enabled;
-        var delay = new WaitForSeconds(_delay);
+        WaitForSeconds delay = new WaitForSeconds(_delay);
 
         while (isWork)
         {
