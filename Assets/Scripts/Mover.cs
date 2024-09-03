@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    private int _indexInArray;
+    private int _indexInPoints;
     private float _speed;
     private Transform _pointToGo;
     private Transform[] _points;
@@ -13,7 +13,7 @@ public class Mover : MonoBehaviour
 
         for (int i = 0; i < _pointToGo.childCount; i++)
         {
-            _points[i] = _pointToGo.GetChild(i).GetComponent<Transform>();
+            _points[i] = _pointToGo.GetChild(i);
         }
     }
 
@@ -24,25 +24,25 @@ public class Mover : MonoBehaviour
 
     private void MoveToPoint()
     {
-        Transform pointToGo = _points[_indexInArray];
+        Transform pointToGo = _points[_indexInPoints];
         transform.position = Vector3.MoveTowards(transform.position, pointToGo.position, _speed * Time.deltaTime);
 
         if (transform.position == pointToGo.position)
         {
-            GetNextPoint();
+            ChooseNextPoint();
         }
     }
 
-    private Vector3 GetNextPoint()
+    private Vector3 ChooseNextPoint()
     {
-        _indexInArray++;
+        _indexInPoints++;
 
-        if (_indexInArray == _points.Length)
+        if (_indexInPoints == _points.Length)
         {
-            _indexInArray = 0;
+            _indexInPoints = 0;
         }
 
-        var newPoint = _points[_indexInArray].transform.position;
+        var newPoint = _points[_indexInPoints].transform.position;
         transform.forward = newPoint - transform.position;
 
         return newPoint;

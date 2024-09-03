@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Shooting : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
@@ -12,12 +12,13 @@ public class Shooting : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Gunfire());
+        StartCoroutine(Shooting());
     }
 
-    private IEnumerator Gunfire()
+    private IEnumerator Shooting()
     {
         bool isWork = enabled;
+        var delay = new WaitForSeconds(_delay);
 
         while (isWork)
         {
@@ -27,7 +28,7 @@ public class Shooting : MonoBehaviour
             newBullet.transform.up = bulletDirection;
             newBullet.velocity = bulletDirection * _speed;
 
-            yield return new WaitForSeconds(_delay);
+            yield return delay;
         }
     }
 }
